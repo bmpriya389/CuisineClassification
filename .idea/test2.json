@@ -1,0 +1,27 @@
+[
+  {
+    "id": 32734,
+    "cuisine": "greek",
+    "ingredients": [
+      "black pepper",
+      "heavy cream",
+      "large eggs",
+      "puff pastry",
+      "fresh thyme leaves",
+      "feta cheese",
+      "flour for dusting"
+    ]
+  },
+  {
+    "id": 8547,
+    "cuisine": "greek",
+    "ingredients": [
+      "dry white wine",
+      "leaf parsley",
+      "greek yogurt",
+      "mussels",
+      "shallots",
+      "olive oil"
+    ]
+  }
+]

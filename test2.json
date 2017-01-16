@@ -1,0 +1,59 @@
+[
+  {
+    "id": 32734,
+    "cuisine": "greek",
+    "ingredients": [
+      "black pepper",
+      "flour for dusting"
+    ]
+  },
+  {
+    "id": 8547,
+    "cuisine": "greek",
+    "ingredients": [
+      "dry white wine",
+      "leaf parsley",
+      "flour for dusting",
+      "chickpeas"
+
+    ]
+  },
+   {
+    "id": 36978,
+    "cuisine": "indian",
+    "ingredients": [
+      "water",
+      "cilantro",
+      "cinnamon sticks"
+    ]
+  },
+  {
+    "id": 2625,
+    "cuisine": "indian",
+    "ingredients": [
+      "coconut oil",
+      "garam masala",
+      "chickpeas",
+      "cilantro",
+      "ground ginger",
+      "fresh leav spinach",
+      "garlic",
+      "chickpeas"
+    ]
+  },
+  {
+    "id": 43740,
+    "cuisine": "chinese",
+    "ingredients": [
+      "hoisin sauce",
+      "vegetable stock",
+      "rice vinegar",
+      "noodles",
+      "low sodium soy sauce",
+      "udon",
+      "cinnamon sticks",
+      "chickpeas"
+
+    ]
+  }
+]
