@@ -1,10 +1,10 @@
 from __future__ import division, print_function
 import pandas
-import numpy
 import json
 from collections import Counter
 import pymongo
 from sklearn.naive_bayes import MultinomialNB
+from sklearn import datasets
 
 def create_dataset():
 
@@ -13,8 +13,6 @@ def create_dataset():
 
     # create dictionaries for ingredients, no of recorded recipes per type of cuisine & ingredient count
     total_recipes = len(train)
-
-    training_dataset = [{"id":i["id"], "cuisine": i["cuisine"], "ingredients": dict(Counter(i["ingredients"]))} for i in train]
     cuisines = set([k["cuisine"] for k in train])
     cuisine_ingredient = dict.fromkeys(cuisines, [])
     cuisine_count = dict.fromkeys(cuisines, 0)
@@ -37,9 +35,8 @@ def create_dataset():
     ingredients_global = [i for _ in train_cuisine['Ingredients'] for i in _]
     ingredients_global_count = dict(Counter(ingredients_global))
     ingredients_global_total = len(ingredients_global)
-    ingredients_global = set(ingredients_global)
+    ingredients_global = list(set(ingredients_global))
     ingredients_cuisine = dict.fromkeys(ingredients_global, {})
-
 
     for i in ingredients_global:
         ingredients_cuisine[i] = {j: train_cuisine.loc[j, "IngredientsCount"][i] for j in list(train_cuisine.index) if
@@ -54,17 +51,13 @@ def create_dataset():
         db.create_collection('ingredStats')
         db.create_collection('cuisine')
         db.create_collection('recipes')
-        db.create_collection('training_dataset')
-
         map(lambda x: db.get_collection('ingredStats').insert_one(ingredients_cuisine[x]), ingredients_cuisine)
         map(lambda y: db.get_collection('cuisine').insert_one({'cuisine': y, 'count': train_cuisine['noOfRecipes'][y]}), train_cuisine.index)
-        map(lambda z: db.get_collection('training_dataset').insert_one(z), training_dataset)
-
         db.get_collection('recipes').insert_one({'desc': 'recipesInfo','recipeCount': total_recipes})
         db.get_collection('ingredStats').insert_one({'desc':'globalTotalIngredient','global_total': ingredients_global_total})
     except pymongo.errors.WriteError, e:
         print(u"unsuccessful write: {}").format(e)
-    print(training_dataset)
+    print(cuisine_ingredient_count)
 
 def add_to_dataset(cuisine_input, ingred_input):
     try:
@@ -76,15 +69,13 @@ def add_to_dataset(cuisine_input, ingred_input):
     except pymongo.errors.WriteError, e:
         print(u"unsuccessful write: {}").format(e)
 
-def predictor_score(ingredients):
-    not_in_ingredients =set(i['ingredient'] for i in db.ingredStats.find({"ingredient": {"$exists": True}})).difference(ingredients.keys())
-    for j in not_in_ingredients:
-        ingredients[j]=0.0
-    model = MultinomialNB(alpha = 1.0, fit_prior = True, class_prior = None)
-    X = pandas.DataFrame([y for y in db.training_dataset.find()])
-    a = pandas.DataFrame(X['ingredients'].tolist()).fillna(0)
-    model.fit(X=a, y=X['cuisine'])
-    print(model.predict(ingredients))
+def predictor_score():
+    l = [x for x in db.recipes.find({'desc': 'recipesInfo'})][0]['recipeCount']
+    class_prior = {i['cuisine']: i['count']/l for i in db.cuisine.find({"cuisine": {"$exists": True}})}
+    print(class_prior)
+    model = MultinomialNB(alpha = 1.0, fit_prior = True, class_prior = class_prior)
+
+
 
 if __name__ == "__main__":
 
@@ -94,14 +85,7 @@ if __name__ == "__main__":
         print("Connected")
     except pymongo.errors.ConnectionFailure, e:
         print(u"could not connect to db {}").format(e)
+
     db = conn['cuisine']
-    #create_dataset()
-    predictor_score(pandas.DataFrame({"coconut oil":1.0,
-      "garam masala":1.0,
-      "chickpeas":1.0,
-      "cilantro":1.0,
-      "ground ginger":1.0,
-      "fresh leav spinach":1.0,
-      "garlic":1.0,
-      "chickpeas":1.0}, index=[0]))
+    print(dict(Counter([1,222,3,4,222,222])))
 
