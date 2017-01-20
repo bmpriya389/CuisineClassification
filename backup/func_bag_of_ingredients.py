@@ -105,4 +105,3 @@ if __name__ == "__main__":
       "garlic":1.0,
       "chickpeas":1.0}, index=[0]))
 
-Contact GitHub 
