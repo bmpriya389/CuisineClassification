@@ -1,0 +1,103 @@
+<html ng-app = "feedMe">
+	<head>
+		<title> TEO - Write Recipe </title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script> 
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link href="https://fonts.googleapis.com/css?family=Quicksand|Raleway" rel="stylesheet">
+		<link href="/static/css/teo.css" rel="stylesheet">
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+
+	
+	</head>
+	<body ng-controller='recipeCtrl'>
+	<header id="header"> 
+		<div class="container">
+			Cuisine Classifier
+		</div>
+	</header>
+	<section>
+		<div class = "container">
+			<h1>Cuisine Classification Using Bayes Naive</h1>
+			<br>
+				<div class = "container teoinput col-xs-12 col-md-12">
+					<br>
+					Enter Ingredients:
+					<p></p>
+					<form name = "ingredientQuantity" id = "iq" class = "form-inline" ng-submit = "ingredientCheck()">
+						<div class = "form-group">
+							<input type = "text" name = "ingredient" class = "form-control" ng-model = "teo_ingredient" placeholder="Add Ingredient" required autofocus>
+							<input type = "number" step = "any" min = 0.25 name = "quantity"  class = "form-control"  ng-model = "teo_quantity"  placeholder="Add Quantity" required>
+							<select ng-model="selectedMeasure" ng-init = "selectedMeasure = measures[0]" ng-options = "x for x in measures" class="form-control"></select>
+							<button type="submit" hidden></button>
+						</div>
+					</form>
+					<br>
+				</div>
+				<div class = "container teolist col-xs-12 col-md-12" ng-cloak ng-if='ingredQuant.length!=0'>
+					<br>
+					Ingredients:
+					<p></p>	
+					<ul>	
+						<li ng-repeat = "x in ingredQuant">	 
+							<span>{{'{{x.Quantity}}'}} {{'{{x.Measure}}'}} of {{'{{x.Ingredient}}'}}
+								<span ng-click="deleteIngred(x,$index)"> &times; </span>
+							</span>
+						</li>
+					</ul>
+					<br>
+				</div>
+				{% raw %}
+				<div class = "container teoresult col-xs-12 col-md-12" ng-if='predicted!=""' ng-cloak>
+					<br>
+					Cuisine: &nbsp;
+					<span ng-bind = "predicted">
+						 {{predicted}}
+					</span>
+					<br><br>
+				</div>
+				{% endraw %}
+				<div align='center' class="container col-xs-12 col-md-12" ng-if='predicted!=""'>
+						<h4 align='center'> Similarity with other cuisines </h4>
+						<p></p>	
+							<div summary>
+								<div id = "cuisineChart">
+								</div>
+							</div>
+						<br>
+				</div>
+		</div>
+		<div class='container'>
+				<div class = "container teoinput col-xs-12 col-md-12">
+					<br>
+					Enter Directions:
+					<p></p>
+					<form name = "teo_directions" id = "directions" class = "form-inline" ng-submit = "addDirections()" required>
+						<div class = "form-group">
+							<input type = "text" name = "instruction" class = "form-control" ng-model = "teo_direction" placeholder="Add direction" size="20" required>
+							<button type="submit" hidden></button>
+						</div>
+					</form>
+					<br>
+				</div>
+				<div class = "container teolist col-xs-12 col-md-12" ng-cloak ng-if="directions.length!=0">
+					<br>
+					Directions:
+					<p></p>
+					<ol>
+						<li ng-repeat = "y in directions">
+						<span> {{'{{y}}'}} </span>
+						<span ng-click="deleteDirection(y, $index)"> &times; </span>
+						</li>
+					</ol>
+					<br>
+				</div>
+		</div>
+		<script src = "/static/js/teo_pie.js"></script>
+		<script src = "/static/js/teo.js"></script>
+	</section>
+	</body>
+</html>

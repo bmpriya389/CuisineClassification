@@ -1,0 +1,38 @@
+
+    # Combine metioned dictionaries to form a data frame with rows as cuisines and columns as no of recipes recorded,
+    # ingredients, no of time an ingredient has featured in a cuisine
+
+    train_cuisine = pandas.DataFrame(
+        {'noOfRecipes': cuisine_count, 'Ingredients': cuisine_ingredient, 'IngredientsCount': cuisine_ingredient_count})
+
+    ingredients_global = [i for _ in train_cuisine['Ingredients'] for i in _]
+    ingredients_global_count = dict(Counter(ingredients_global))
+    ingredients_global_total = len(ingredients_global)
+    ingredients_global = set(ingredients_global)
+    ingredients_cuisine = dict.fromkeys(ingredients_global, {})
+
+
+    for i in ingredients_global:
+        ingredients_cuisine[i] = {j: train_cuisine.loc[j, "IngredientsCount"][i] for j in list(train_cuisine.index) if
+                                  i in train_cuisine.loc[j, "IngredientsCount"].keys()}
+
+    for i in ingredients_global_count:
+        ingredients_cuisine[i]['globalCount'] = ingredients_global_count[i]
+        ingredients_cuisine[i]['ingredient'] = i
+
+    # creating a collection for ingredient stats
+    try:
+        db.create_collection('ingredStats')
+        db.create_collection('cuisine')
+        db.create_collection('recipes')
+        db.create_collection('training_dataset')
+
+        map(lambda x: db.get_collection('ingredStats').insert_one(ingredients_cuisine[x]), ingredients_cuisine)
+        map(lambda y: db.get_collection('cuisine').insert_one({'cuisine': y, 'count': train_cuisine['noOfRecipes'][y]}), train_cuisine.index)
+        map(lambda z: db.get_collection('training_dataset').insert_one(z), training_dataset)
+
+        db.get_collection('recipes').insert_one({'desc': 'recipesInfo','recipeCount': total_recipes})
+        db.get_collection('ingredStats').insert_one({'desc':'globalTotalIngredient','global_total': ingredients_global_total})
+    except pymongo.errors.WriteError, e:
+        print(u"unsuccessful write: {}").format(e)
+    print(training_dataset)

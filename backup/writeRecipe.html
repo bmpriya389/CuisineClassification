@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<title> TEO - Write Recipe </title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	
+	</head>
+	<body ng-app = "feedMe" ng-controller = "recipeCtrl">
+	<section>
+		<header id="header"> </header>
+		<br>
+		<div>
+			<div class = "container well">
+			Enter Ingredients
+				<form name = "ingredientQuantity" id = "iq" class = "form-inline" ng-submit = "ingredientCheck()">
+					<div class = "form-group">
+						<input type = "text" name = "ingredient" class = "form-control" ng-model = "teo_ingredient" placeholder="Add Ingredient" required autofocus>
+						<input type = "number" step = "any" min = 0.25 name = "quantity"  class = "form-control"  ng-model = "teo_quantity"  placeholder="Add Quantity" required>
+						<select ng-model="selectedMeasure" ng-init = "selectedMeasure = measures[0]" ng-options = "x for x in measures" class="form-control"></select>
+						<button type="submit" hidden></button>
+					</div>
+				</form>
+			</div>
+			<div class = "container well" ng-cloak>
+			Ingredients:
+				<ol>
+					<li ng-repeat = "x in ingredQuant">	 {{'{{x.Quantity}}'}} {{'{{x.Measure}}'}} of {{'{{x.Ingredient}}'}} </li>
+				<ol>
+			</div>
+			<div class = "container well" ng-cloak>
+			Cuisines:
+				<span ng-bind = "predicted">
+						 {{'{{predicted}}'}} 
+				</span>
+			</div>
+			<div class = "container well">
+			Enter Directions:
+				<form name = "teo_directions" id = "directions" class = "form-inline" ng-submit = "addDirections()" required>
+					<div class = "form-group">
+						<input type = "text" name = "instruction" class = "form-control" ng-model = "teo_direction" placeholder="Add direction" required>
+						<button type="submit" hidden></button>
+					</div>
+				</form>
+			</div>
+			<div class = "container well" ng-cloak>
+			Directions:
+				<ol>
+					<li ng-repeat = "x in directions"> {{'{{x}}'}} </li>
+				<ol>
+			</div>
+		</div>
+	</section>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	<script src ="{{ url_for('static', filename='js/teo.js' )}}">	
+
+
+	</body>
+</html>

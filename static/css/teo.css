@@ -1,0 +1,30 @@
+body{
+	font-family: 'Raleway', sans-serif;
+	background-color: #fff;
+}
+h1{
+	font-family: 'Quicksand', sans-serif;
+}
+form{
+	margin: 5px 0px 5px 0px; 
+}
+.teoinput{
+	margin: 0px 10px 10px 10px;
+	color: white;
+	background-color: #AA3939;
+	border-radius: 15px;
+}
+.teolist{
+	margin: 0px 10px 10px 10px;
+	color: white;
+	background-color: #76120F;
+	border-radius: 15px;
+
+}
+.teoresult{
+	margin: 0px 10px 10px 10px;
+	color: white;
+	background-color: #A72B3C;
+	border-radius: 15px;
+
+}
