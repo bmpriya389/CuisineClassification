@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 4.	Angular 1.5.6
 5.	D3
 
-##Intructions:s
+##Instructions
 1. Download or clone this repository.
 2. Install Mongodb and create a database ‘cuisine’ using the following command:
     use <database_name>
@@ -25,9 +25,9 @@ These instructions will get you a copy of the project up and running on your loc
     flask run
 6.  Access the application at localhost:5000.
 
-Authors
+##Authors
 	•	Priya Balachandran Mary
 
-Sources
+##Sources
 information: https://www.kaggle.com/c/whats-cooking
 dataset: https://www.kaggle.com/c/whats-cooking/data
