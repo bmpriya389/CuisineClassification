@@ -32,7 +32,7 @@
 							<input type = "text" name = "ingredient" class = "form-control" ng-model = "teo_ingredient" placeholder="Add Ingredient" required autofocus>
 							<input type = "number" step = "any" min = 0.25 name = "quantity"  class = "form-control"  ng-model = "teo_quantity"  placeholder="Add Quantity" required>
 							<select ng-model="selectedMeasure" ng-init = "selectedMeasure = measures[0]" ng-options = "x for x in measures" class="form-control"></select>
-							<button type="submit" hidden></button>
+							<button type="submit" class="form-control">Add</button>
 						</div>
 					</form>
 					<br>
@@ -78,7 +78,7 @@
 					<form name = "teo_directions" id = "directions" class = "form-inline" ng-submit = "addDirections()" required>
 						<div class = "form-group">
 							<input type = "text" name = "instruction" class = "form-control" ng-model = "teo_direction" placeholder="Add direction" size="20" required>
-							<button type="submit" hidden></button>
+							<button type="submit" class="form-control">Add</button>
 						</div>
 					</form>
 					<br>
