@@ -1,6 +1,6 @@
       var teoPie = function(place, data){
 
-        var width = 600;
+        var width = 560;
         var height = 400;
         var radius = d3.min([width, height])/2;
         var color =  d3.scaleOrdinal(d3.schemeCategory20b);    

@@ -10,92 +10,67 @@
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
-
-	
 	</head>
+
 	<body ng-controller='recipeCtrl'>
-	<header id="header"> 
-		<div class="container">
-			Cuisine Classifier
-		</div>
-	</header>
 	<section>
-		<div class = "container">
-			<h1>Cuisine Classification Using Bayes Naive</h1>
-			<br>
-				<div class = "container teoinput col-xs-12 col-md-12">
-					<br>
+		<h1 align="center">Cuisine Classification Using Bayes Naive</h1>
+		<div class="container">
+			<div class="container col-xs-12 col-md-6" >
+				<div align="center" class="cuisine-img"><img src = '/static/img/Food-Dome-512.png'></div>
+				{% raw %}
+				<div ng-if='predicted!=""' ng-cloak>
+					<h1 align="center">Cuisine: <i>{{predicted}}</i></h1>
+				</div>
+				{% endraw %}
+			</div>
+			<div class="container col-xs-12 col-md-6">
+				<div class = "teoinput">
 					Enter Ingredients:
-					<p></p>
 					<form name = "ingredientQuantity" id = "iq" class = "form-inline" ng-submit = "ingredientCheck()">
 						<div class = "form-group">
 							<input type = "text" name = "ingredient" class = "form-control" ng-model = "teo_ingredient" placeholder="Add Ingredient" required autofocus>
 							<input type = "number" step = "any" min = 0.25 name = "quantity"  class = "form-control"  ng-model = "teo_quantity"  placeholder="Add Quantity" required>
 							<select ng-model="selectedMeasure" ng-init = "selectedMeasure = measures[0]" ng-options = "x for x in measures" class="form-control"></select>
-							<button type="submit" hidden></button>
+							<button type="submit" class = "form-control">Add</button>
 						</div>
 					</form>
-					<br>
 				</div>
-				<div class = "container teolist col-xs-12 col-md-12" ng-cloak ng-if='ingredQuant.length!=0'>
-					<br>
+				<div class = "teolist" ng-cloak ng-if='ingredQuant.length!=0'>
 					Ingredients:
-					<p></p>	
-					<ul>	
-						<li ng-repeat = "x in ingredQuant">	 
-							<span>{{'{{x.Quantity}}'}} {{'{{x.Measure}}'}} of {{'{{x.Ingredient}}'}}
-								<span ng-click="deleteIngred(x,$index)"> &times; </span>
-							</span>
-						</li>
-					</ul>
-					<br>
-				</div>
-				{% raw %}
-				<div class = "container teoresult col-xs-12 col-md-12" ng-if='predicted!=""' ng-cloak>
-					<br>
-					Cuisine: &nbsp;
-					<span ng-bind = "predicted">
-						 {{predicted}}
+					<span class="tag" ng-repeat = "x in ingredQuant">	 
+						<span>{{'{{x.Quantity}}'}} {{'{{x.Measure}}'}} of {{'{{x.Ingredient}}'}}
+							<span ng-click="deleteIngred(x,$index)"> &times; </span>
+						</span>
 					</span>
-					<br><br>
+				</div>		
+				<div align='center' class="col-xs-12 col-md-11" ng-if='predicted!=""'>
+					<h3 align='center'> Similarity with other cuisines </h3>
+					<div summary id = "cuisineChart"></div>
 				</div>
-				{% endraw %}
-				<div align='center' class="container col-xs-12 col-md-12" ng-if='predicted!=""'>
-						<h4 align='center'> Similarity with other cuisines </h4>
-						<p></p>	
-							<div summary>
-								<div id = "cuisineChart">
-								</div>
-							</div>
-						<br>
-				</div>
+			</div>
 		</div>
-		<div class='container'>
-				<div class = "container teoinput col-xs-12 col-md-12">
-					<br>
-					Enter Directions:
-					<p></p>
-					<form name = "teo_directions" id = "directions" class = "form-inline" ng-submit = "addDirections()" required>
-						<div class = "form-group">
-							<input type = "text" name = "instruction" class = "form-control" ng-model = "teo_direction" placeholder="Add direction" size="20" required>
-							<button type="submit" hidden></button>
-						</div>
-					</form>
-					<br>
-				</div>
-				<div class = "container teolist col-xs-12 col-md-12" ng-cloak ng-if="directions.length!=0">
-					<br>
-					Directions:
-					<p></p>
-					<ol>
-						<li ng-repeat = "y in directions">
-						<span> {{'{{y}}'}} </span>
-						<span ng-click="deleteDirection(y, $index)"> &times; </span>
-						</li>
-					</ol>
-					<br>
-				</div>
+		<div class = "container" ng-if = "ingredQuant.length!=0">
+			<div class = "teoinput col-xs-12 col-md-12">
+				Enter Directions:
+				<form name = "teo_directions" id = "directions" class = "form-inline" ng-submit = "addDirections()" required>
+					<div class = "form-group">
+						<input type = "text" name = "instruction" class = "form-control" ng-model = "teo_direction" placeholder="Add direction" size="20" required>
+						<button type="submit" class = "form-control">Add</button>
+					</div>
+				</form>
+			</div>
 		</div>
+		<div class = "container teolist col-xs-12 col-md-12" ng-cloak ng-if="directions.length!=0">
+			Directions:
+			<ol>
+				<li ng-repeat = "y in directions">
+				<span> {{'{{y}}'}} </span>
+				<span ng-click="deleteDirection(y, $index)"> &times; </span>
+				</li>
+			</ol>
+		</div>
+	
 		<script src = "/static/js/teo_pie.js"></script>
 		<script src = "/static/js/teo.js"></script>
 	</section>

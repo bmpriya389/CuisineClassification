@@ -2,29 +2,54 @@ body{
 	font-family: 'Raleway', sans-serif;
 	background-color: #fff;
 }
-h1{
+div.cuisine-img{
+	padding: 20px 10px 20px 10px;
+}
+div{
+	transition: all linear 0.25s;
+}
+h1, h2, h3{
 	font-family: 'Quicksand', sans-serif;
+	padding: 20px 10px 20px 10px;
+	margin: 10px 5px 10px 5px; 
 }
 form{
-	margin: 5px 0px 5px 0px; 
+	margin: 5px 5px 5px 5px; 
 }
+span.tag{
+	border-color: white;
+    border-radius: 5px;
+	border-style: solid;
+	border-spacing: 5px;
+	padding: 5px 5px 5px 10px;
+	margin: 5px 5px 5px 5px;
+	display: inline-block;
+}
+.ng-hide {
+  height: 0;
+}
+
+
 .teoinput{
-	margin: 0px 10px 10px 10px;
+	margin: 10px 10px 10px 10px;
+	padding: 20px 15px 20px 15px;
 	color: white;
-	background-color: #AA3939;
+	background-color: #265B6A;
 	border-radius: 15px;
 }
 .teolist{
-	margin: 0px 10px 10px 10px;
+	margin: 10px 10px 10px 10px;
+	padding: 20px 15px 20px 15px;
 	color: white;
-	background-color: #76120F;
+	background-color: #0F414F;
 	border-radius: 15px;
 
 }
 .teoresult{
-	margin: 0px 10px 10px 10px;
+	margin: 10px 10px 10px 10px;
+	padding: 20px 15px 20px 15px;
 	color: white;
-	background-color: #A72B3C;
+	background-color: #022A35;
 	border-radius: 15px;
 
 }

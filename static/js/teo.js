@@ -34,7 +34,8 @@ feedMeApp.controller('recipeCtrl', function($scope, $http){
           }).then(function(response){
             var result= response.data;
             if(typeof result != 'string'){
-              $scope.predicted = result[0].predicted;
+              $scope.predicted = result[0].predicted[0].toUpperCase() + result[0].predicted.slice(1);
+
               result.shift();
               $scope.predictValues = result;
             }
