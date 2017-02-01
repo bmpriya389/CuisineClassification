@@ -19,7 +19,7 @@ These instructions will get you a copy of the project up and running on your loc
     mongoimport --db cuisine --collection ingred_info --file ingred_info.json 
     mongoimport --db cuisine --collection cuisine_info --file cuisine_info.json
     mongoimport --db cuisine --collection training_set_info --file training_set.json
-4.  Install the numpy, pymongo and flask  libraries in python using pip.
+4.  Install the numpy, json, collections, pymongo, operator and flask  libraries in python using pip.
 5.  Run the flask server in a terminal by navigating to the project folder and running the following commands:
     export FLASK_APP=app.py
     flask run
