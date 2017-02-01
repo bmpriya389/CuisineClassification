@@ -32,11 +32,7 @@
 							<input type = "text" name = "ingredient" class = "form-control" ng-model = "teo_ingredient" placeholder="Add Ingredient" required autofocus>
 							<input type = "number" step = "any" min = 0.25 name = "quantity"  class = "form-control"  ng-model = "teo_quantity"  placeholder="Add Quantity" required>
 							<select ng-model="selectedMeasure" ng-init = "selectedMeasure = measures[0]" ng-options = "x for x in measures" class="form-control"></select>
-<<<<<<< HEAD
 							<button type="submit" class = "form-control">Add</button>
-=======
-							<button type="submit" class="form-control">Add</button>
->>>>>>> e8d85344d1802bf47f9309fbb129dbd76cd1829c
 						</div>
 					</form>
 				</div>
@@ -54,7 +50,6 @@
 				</div>
 			</div>
 		</div>
-<<<<<<< HEAD
 		<div class = "container" ng-if = "ingredQuant.length!=0">
 			<div class = "teoinput col-xs-12 col-md-12">
 				Enter Directions:
@@ -65,33 +60,6 @@
 					</div>
 				</form>
 			</div>
-=======
-		<div class='container'>
-				<div class = "container teoinput col-xs-12 col-md-12">
-					<br>
-					Enter Directions:
-					<p></p>
-					<form name = "teo_directions" id = "directions" class = "form-inline" ng-submit = "addDirections()" required>
-						<div class = "form-group">
-							<input type = "text" name = "instruction" class = "form-control" ng-model = "teo_direction" placeholder="Add direction" size="20" required>
-							<button type="submit" class="form-control">Add</button>
-						</div>
-					</form>
-					<br>
-				</div>
-				<div class = "container teolist col-xs-12 col-md-12" ng-cloak ng-if="directions.length!=0">
-					<br>
-					Directions:
-					<p></p>
-					<ol>
-						<li ng-repeat = "y in directions">
-						<span> {{'{{y}}'}} </span>
-						<span ng-click="deleteDirection(y, $index)"> &times; </span>
-						</li>
-					</ol>
-					<br>
-				</div>
->>>>>>> e8d85344d1802bf47f9309fbb129dbd76cd1829c
 		</div>
 		<div class = "container teolist col-xs-12 col-md-12" ng-cloak ng-if="directions.length!=0">
 			Directions:
